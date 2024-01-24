@@ -1,8 +1,8 @@
 package com.example.rickandmortymindblower.ui.activities.main.screens.character
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val charactersRepository: CharactersRepository,
 ): ViewModel() {
 
@@ -22,11 +22,16 @@ class CharacterViewModel @Inject constructor(
         private set
 
     init {
+        getCharacterDetails()
+    }
+
+    private fun getCharacterDetails() {
         val characterId: String? = savedStateHandle["characterId"]
-        characterId?.let {
+        if (characterId != null) {
             viewModelScope.launch {
                 character = charactersRepository.getCharacterById(characterId)
             }
         }
     }
+
 }

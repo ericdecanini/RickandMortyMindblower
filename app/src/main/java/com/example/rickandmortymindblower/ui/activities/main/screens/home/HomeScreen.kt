@@ -27,7 +27,7 @@ import com.example.rickandmortymindblower.entity.Character
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: MainViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     Column {
         TopAppBar(title = { Text("Rick and Morty Mindblower") })

@@ -6,10 +6,10 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class CharactersRepositoryTest {
+class CharactersRepositoryImplTest {
 
     private val rickAndMortyApi = FakeRickAndMortyApi()
-    private val charactersRepository = CharactersRepository(rickAndMortyApi)
+    private val charactersRepository = CharactersRepositoryImpl(rickAndMortyApi)
 
     @Test
     fun `when getCharacters, then get from api and map`() = runTest {
