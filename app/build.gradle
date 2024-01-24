@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    id 'com.apollographql.apollo3'
 }
 
 android {
@@ -51,23 +50,22 @@ android {
 
 dependencies {
 
-    //NavHost
-    def nav_version = "2.5.3"
+    // NavHost
+    implementation("androidx.navigation:navigation-compose:2.5.3")
 
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-
-    //Dagger hilt
+    // Dagger hilt
     implementation("com.google.dagger:hilt-android:2.44.2")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
-    //Coil
+    // Coil
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    //Apollo
-    implementation 'com.apollographql.apollo3:apollo-runtime:3.7.4'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation"com.squareup.moshi:moshi-kotlin:1.15.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
-    //Normal dependencies
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'
@@ -84,10 +82,4 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
-}
-
-apollo {
-    // instruct the compiler to generate Kotlin models
-    generateKotlinModels.set(true)
-    packageNamesFromFilePaths()
 }
