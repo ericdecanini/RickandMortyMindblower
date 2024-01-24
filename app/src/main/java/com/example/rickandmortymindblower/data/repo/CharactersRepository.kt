@@ -1,5 +1,6 @@
 package com.example.rickandmortymindblower.data.repo
 
+import com.example.rickandmortymindblower.data.api.CharacterResponse
 import com.example.rickandmortymindblower.data.api.RickAndMortyApi
 import com.example.rickandmortymindblower.entity.Character
 import javax.inject.Inject
@@ -9,10 +10,25 @@ class CharactersRepository @Inject constructor(
 ) {
 
     suspend fun getCharacters(): List<Character> {
-        return rickAndMortyApi.getCharacters().results
+        return rickAndMortyApi.getCharacters().results.map {
+            mapCharacterResponseToCharacter(it)
+        }
+    }
+
+    private fun mapCharacterResponseToCharacter(response: CharacterResponse): Character {
+        return Character(
+            id = response.id,
+            name = response.name,
+            status = response.status,
+            species = response.species,
+            image = response.image,
+            origin = response.origin.name,
+            episodeDebut = response.episode.firstOrNull()?.substringAfterLast("/").orEmpty()
+        )
     }
 
     suspend fun getCharacterById(characterId: String): Character {
-        return rickAndMortyApi.getCharacterById(characterId)
+        val response = rickAndMortyApi.getCharacterById(characterId)
+        return mapCharacterResponseToCharacter(response)
     }
 }
