@@ -1,4 +1,4 @@
-package com.example.rickandmortymindblower
+package com.example.rickandmortymindblower.ui.activities.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.rickandmortymindblower.characterlist.CharacterListScreen
+import com.example.rickandmortymindblower.ui.activities.main.screens.home.HomeScreen
 import com.example.rickandmortymindblower.ui.theme.RickandMortyMindblowerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "character_list_screen"
                 ) {
                     composable("character_list_screen") {
-                        CharacterListScreen(navController = navController)
+                        HomeScreen(navController = navController)
                     }
                     composable("character_detail_screen/{characterName}",
                         arguments = listOf(

@@ -1,7 +1,7 @@
 package com.example.rickandmortymindblower.di
 
-import com.example.rickandmortymindblower.repo.RickAndMortyApi
-import com.example.rickandmortymindblower.repo.RickAndMortyApiFactory
+import com.example.rickandmortymindblower.data.api.RickAndMortyApi
+import com.example.rickandmortymindblower.data.api.RickAndMortyApiFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

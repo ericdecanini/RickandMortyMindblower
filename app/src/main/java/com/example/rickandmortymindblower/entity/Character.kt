@@ -1,4 +1,4 @@
-package com.example.rickandmortymindblower.repo
+package com.example.rickandmortymindblower.entity
 
 data class Character(
     val id: String,

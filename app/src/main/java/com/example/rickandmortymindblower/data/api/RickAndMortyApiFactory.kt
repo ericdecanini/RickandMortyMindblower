@@ -1,4 +1,4 @@
-package com.example.rickandmortymindblower.repo
+package com.example.rickandmortymindblower.data.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

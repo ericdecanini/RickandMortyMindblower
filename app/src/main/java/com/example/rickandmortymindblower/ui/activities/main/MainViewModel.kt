@@ -1,12 +1,12 @@
-package com.example.rickandmortymindblower
+package com.example.rickandmortymindblower.ui.activities.main
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortymindblower.repo.Character
-import com.example.rickandmortymindblower.repo.CharactersRepository
+import com.example.rickandmortymindblower.entity.Character
+import com.example.rickandmortymindblower.data.repo.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

@@ -1,5 +1,7 @@
-package com.example.rickandmortymindblower.repo
+package com.example.rickandmortymindblower.data.repo
 
+import com.example.rickandmortymindblower.data.api.RickAndMortyApi
+import com.example.rickandmortymindblower.entity.Character
 import javax.inject.Inject
 
 class CharactersRepository @Inject constructor(

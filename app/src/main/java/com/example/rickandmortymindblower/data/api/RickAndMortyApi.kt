@@ -1,4 +1,4 @@
-package com.example.rickandmortymindblower.repo
+package com.example.rickandmortymindblower.data.api
 
 import retrofit2.http.GET
 
