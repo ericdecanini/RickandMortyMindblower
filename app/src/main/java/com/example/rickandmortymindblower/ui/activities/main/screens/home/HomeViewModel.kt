@@ -1,4 +1,4 @@
-package com.example.rickandmortymindblower.ui.activities.main
+package com.example.rickandmortymindblower.ui.activities.main.screens.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue

@@ -2,6 +2,7 @@
 
 package com.example.rickandmortymindblower.ui.activities.main.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.rickandmortymindblower.entity.Character
-import com.example.rickandmortymindblower.ui.activities.main.MainViewModel
 
 
 @Composable
@@ -33,15 +33,21 @@ fun HomeScreen(
         TopAppBar(title = { Text("Rick and Morty Mindblower") })
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             viewModel.characters.forEach {
-                item { CharacterBox(it) }
+                item { CharacterBox(it, navController) }
             }
         }
     }
 }
 
 @Composable
-fun CharacterBox(character: Character) {
-    OutlinedCard(modifier = Modifier.padding(8.dp)) {
+fun CharacterBox(
+    character: Character,
+    navController: NavController,
+) {
+    OutlinedCard(
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { navController.navigate("character/${character.name}") }) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -71,21 +77,18 @@ private fun CharacterInfo(character: Character) {
             text = "Name: ${character.name}",
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
-//            color = textColor,
         )
         Text(
             modifier = Modifier.padding(top = 12.dp),
             text = "Status: ${character.status}",
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
-//            color = textColor,
         )
         Text(
             modifier = Modifier.padding(top = 12.dp),
             text = "Species: ${character.species}",
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
-//            color = textColor,
         )
     }
 }
