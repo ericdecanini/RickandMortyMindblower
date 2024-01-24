@@ -11,7 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.rickandmortymindblower.entity.Character
 import com.example.rickandmortymindblower.ui.activities.main.screens.character.CharacterDetailScreen
 import com.example.rickandmortymindblower.ui.activities.main.screens.home.HomeScreen
 import com.example.rickandmortymindblower.ui.theme.RickAndMortyMindblowerTheme
@@ -33,15 +32,14 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController = navController)
                         }
                         composable(
-                            route = "character/{character}",
+                            route = "character/{characterId}",
                             arguments = listOf(
-                                navArgument("character") {
+                                navArgument("characterId") {
                                     type = NavType.StringType
                                 }
                             ),
                         ) {
-                            val character = it.arguments?.getString("character")
-                            CharacterDetailScreen(character ?: "Unknown")
+                            CharacterDetailScreen()
                         }
                     }
                 }

@@ -8,7 +8,11 @@ class CharactersRepository @Inject constructor(
     private val rickAndMortyApi: RickAndMortyApi,
 ) {
 
-    suspend fun getCharacters() : List<Character> {
+    suspend fun getCharacters(): List<Character> {
         return rickAndMortyApi.getCharacters().results
+    }
+
+    suspend fun getCharacterById(characterId: String): Character {
+        return rickAndMortyApi.getCharacterById(characterId)
     }
 }

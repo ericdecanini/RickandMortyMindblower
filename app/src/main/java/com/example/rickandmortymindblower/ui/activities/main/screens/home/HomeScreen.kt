@@ -47,7 +47,7 @@ fun CharacterBox(
     OutlinedCard(
         modifier = Modifier
             .padding(8.dp)
-            .clickable { navController.navigate("character/${character.name}") }) {
+            .clickable { navController.navigate("character/${character.id}") }) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -69,7 +69,6 @@ private fun CharacterImage(character: Character) {
 
 @Composable
 private fun CharacterInfo(character: Character) {
-//    val textColor = MaterialTheme.colors.onPrimary
     Column(
         modifier = Modifier.padding(start = 20.dp),
     ) {
