@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rickandmortymindblower.data.repo.CharactersRepository
 import com.example.rickandmortymindblower.entity.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,13 +21,37 @@ class HomeViewModel @Inject constructor(
         private set
 
     init {
-        fetchCharactersList()
+        loadPage()
     }
 
-    private fun fetchCharactersList() {
+    private fun loadPage() {
         viewModelScope.launch {
-            val charactersResult = charactersRepository.getCharacters()
-            characters = charactersResult
+            fetchCharactersList()
+            observeFavourites()
+        }
+    }
+
+    private suspend fun fetchCharactersList() {
+        val charactersResult = charactersRepository.getCharacters()
+        characters = charactersResult
+    }
+
+    private suspend fun observeFavourites() {
+        charactersRepository.observeFavouriteCharacters().collectLatest { favourites ->
+            val favouriteIds = favourites.map { it.id }
+            characters = characters.map {
+                it.copy(isFavourite = it.id in favouriteIds)
+            }
+        }
+    }
+
+    fun toggleFavourite(character: Character) {
+        viewModelScope.launch {
+            if (character.isFavourite) {
+                charactersRepository.removeFavouriteCharacter(character)
+            } else {
+                charactersRepository.addFavouriteCharacter(character)
+            }
         }
     }
 }

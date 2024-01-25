@@ -8,4 +8,5 @@ data class Character(
     val image: String,
     val origin: String,
     val episodeDebut: String,
+    val isFavourite: Boolean = false,
 )

@@ -1,19 +1,19 @@
 package com.example.rickandmortymindblower.data.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavouritesDao {
 
     @Query("SELECT * FROM favourites")
-    suspend fun getAll(): List<FavouriteEntity>
+    fun getAll(): Flow<List<FavouriteEntity>>
 
     @Insert
     suspend fun insert(favouriteEntity: FavouriteEntity)
 
-    @Delete
-    suspend fun delete(favouriteEntity: FavouriteEntity)
+    @Query("DELETE FROM favourites WHERE id=:id")
+    suspend fun deleteById(id: String)
 }
