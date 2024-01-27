@@ -12,6 +12,7 @@ object CharacterBuilder {
         image: String = "ImageUrl",
         origin: String = "C-137",
         episodeDebut: String = "1",
+        isFavourite: Boolean = false,
     ) = Character(
         id = id,
         name = name,
@@ -20,5 +21,6 @@ object CharacterBuilder {
         image = image,
         origin = origin,
         episodeDebut = episodeDebut,
+        isFavourite = isFavourite,
     )
 }
