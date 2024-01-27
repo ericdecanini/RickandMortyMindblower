@@ -10,6 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class CharactersRepositoryImplTest {
@@ -37,6 +38,15 @@ class CharactersRepositoryImplTest {
         val character = charactersRepository.getCharacterById("id")
 
         assertEquals(expectedCharacter, character)
+    }
+
+    @Test
+    fun `given character is favourited, when getCharacterById, then isFavourite is true`() = runTest {
+        favouritesDao.givenFavouriteWithId("id")
+
+        val character = charactersRepository.getCharacterById("id")
+
+        assertTrue(character.isFavourite)
     }
 
     @Test

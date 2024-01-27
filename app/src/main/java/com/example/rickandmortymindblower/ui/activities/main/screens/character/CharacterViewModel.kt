@@ -34,4 +34,14 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
+    fun toggleFavourite(character: Character) {
+        viewModelScope.launch {
+            if (character.isFavourite) {
+                charactersRepository.removeFavouriteCharacter(character)
+            } else {
+                charactersRepository.addFavouriteCharacter(character)
+            }
+        }
+        this.character = character.copy(isFavourite = !character.isFavourite)
+    }
 }

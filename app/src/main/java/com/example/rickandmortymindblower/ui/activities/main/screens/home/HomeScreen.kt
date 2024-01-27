@@ -64,13 +64,11 @@ fun CharacterBox(
                 CharacterImage(character)
                 CharacterInfo(character)
             }
-            IconButton(
+            FavouriteButton(
                 modifier = Modifier.align(Alignment.CenterEnd),
-                onClick = { viewModel.toggleFavourite(character) },
-            ) {
-                val icon = if (character.isFavourite) Icons.Filled.Star else Icons.Outlined.StarOutline
-                Icon(imageVector = icon, contentDescription = null)
-            }
+                viewModel = viewModel,
+                character = character,
+            )
         }
     }
 }
@@ -105,5 +103,20 @@ private fun CharacterInfo(character: Character) {
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
         )
+    }
+}
+
+@Composable
+private fun FavouriteButton(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel,
+    character: Character,
+) {
+    IconButton(
+        modifier = modifier,
+        onClick = { viewModel.toggleFavourite(character) },
+    ) {
+        val icon = if (character.isFavourite) Icons.Filled.Star else Icons.Outlined.StarOutline
+        Icon(imageVector = icon, contentDescription = null)
     }
 }

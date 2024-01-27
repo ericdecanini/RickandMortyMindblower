@@ -11,6 +11,9 @@ interface FavouritesDao {
     @Query("SELECT * FROM favourites")
     fun getAll(): Flow<List<FavouriteEntity>>
 
+    @Query("SELECT * FROM favourites WHERE id=:id")
+    fun getById(id: String): FavouriteEntity?
+
     @Insert
     suspend fun insert(favouriteEntity: FavouriteEntity)
 

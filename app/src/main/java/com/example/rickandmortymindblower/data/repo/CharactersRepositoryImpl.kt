@@ -5,8 +5,10 @@ import com.example.rickandmortymindblower.data.api.RickAndMortyApi
 import com.example.rickandmortymindblower.data.db.FavouriteEntity
 import com.example.rickandmortymindblower.data.db.FavouritesDao
 import com.example.rickandmortymindblower.entity.Character
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface CharactersRepository {
@@ -39,7 +41,10 @@ class CharactersRepositoryImpl @Inject constructor(
 
     }
 
-    private fun mapCharacterResponseToCharacter(response: CharacterResponse): Character {
+    private fun mapCharacterResponseToCharacter(
+        response: CharacterResponse,
+        isFavourite: Boolean = false,
+    ): Character {
         return Character(
             id = response.id,
             name = response.name,
@@ -47,13 +52,17 @@ class CharactersRepositoryImpl @Inject constructor(
             species = response.species,
             image = response.image,
             origin = response.origin.name,
-            episodeDebut = response.episode.firstOrNull()?.substringAfterLast("/").orEmpty()
+            episodeDebut = response.episode.firstOrNull()?.substringAfterLast("/").orEmpty(),
+            isFavourite = isFavourite,
         )
     }
 
     override suspend fun getCharacterById(characterId: String): Character {
-        val response = rickAndMortyApi.getCharacterById(characterId)
-        return mapCharacterResponseToCharacter(response)
+        return withContext(Dispatchers.IO) {
+            val response = rickAndMortyApi.getCharacterById(characterId)
+            val isFavourite = favouritesDao.getById(characterId) != null
+            mapCharacterResponseToCharacter(response, isFavourite)
+        }
     }
 
     override fun observeFavouriteCharacters(): Flow<List<Character>> {
