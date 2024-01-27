@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,17 +20,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 
 @Composable
 fun CharacterDetailScreen(
-    viewModel: CharacterViewModel = hiltViewModel()
+    viewModel: CharacterViewModel = hiltViewModel(),
+    navController: NavController,
 ) {
     val character = viewModel.character
 
     if (character != null) {
         Column {
-            TopAppBar(title = { Text(text = character.name) })
+            TopAppBar(
+                title = { Text(text = character.name) },
+                navigationIcon = { BackButton(navController) },
+            )
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = character.image,
@@ -60,6 +67,13 @@ fun CharacterDetailScreen(
                 style = MaterialTheme.typography.titleMedium
             )
         }
+    }
+}
+
+@Composable
+private fun BackButton(navController: NavController) {
+    IconButton(onClick = { navController.navigateUp() }) {
+        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
     }
 }
 
